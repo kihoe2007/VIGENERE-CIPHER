@@ -32,26 +32,41 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 ## PROGRAM:
 ~~~
  #include <stdio.h>
- #include <string.h>
- void vigenereCipher(char *text, char *key, int decrypt) {
- int len = strlen(text), keyLen = strlen(key);
- for (int i = 0; i < len; i++) {
- int shift = key[i % keyLen]- 'A';
- text[i] = 'A' + (text[i]- 'A' + (decrypt ? 26- shift : shift)) % 26;
- }
- }
- int main() {
- char text[] = "RAMYA", key[] = "KEY";
- vigenereCipher(text, key, 0);
- printf("Encrypted Message: %s\n", text);
- vigenereCipher(text, key, 1);
- printf("Decrypted Message: %s\n", text);
- return 0;
- }
+#include <string.h>
+#include <ctype.h>
+
+void vigenereEncrypt(char text[], char key[]) {
+    int n = strlen(text), m = strlen(key);
+    for(int i=0;i<n;i++)
+{
+        char p = toupper(text[i]);
+        char k = toupper(key[i % m]);
+        if(p<'A' || p>'Z')
+ {
+            printf("%c", text[i]); 
+        } else {
+            char c = ((p - 'A') + (k - 'A')) % 26 + 'A';
+            printf("%c", c);
+        }
+    }
+}
+
+int main() {
+    char text[100], key[100];
+    printf("Enter plain text: ");
+    scanf("%s", text);
+    printf("Enter keyword: ");
+    scanf("%s", key);
+
+    printf("Cipher Text: ");
+    vigenereEncrypt(text, key);
+
+    return 0;
+}
 ~~~
 
 ## OUTPUT:
-<img width="1162" height="515" alt="image" src="https://github.com/user-attachments/assets/e8227a53-d79c-494f-8ef2-8d8892864297" />
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/9e2d822f-4119-4e21-aab5-8a06d6040dfa" />
 
 
 
